@@ -8,6 +8,13 @@ public class CardTester_BHa {
 	 */
 	public static void main(String[] args) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 1 *** */
+      Card card1 = new Card("King","Clubs",11);
+      Card card2 = new Card("King","Clubs",11);
+      Card card3 = new Card("Jack","Clubs",10);
+      System.out.println(card1);
+      System.out.println(card2);
+      System.out.println(card3);
+      System.out.println("Comparing Card 1 and Card 2 is "+card1.matches(card2));
 	}
 }
 /**
@@ -15,7 +22,7 @@ public class CardTester_BHa {
  *
  * <code>Card</code> represents a playing card.
  */
-public class Card {
+class Card {
 
 	/**
 	 * String value that holds the suit of the card
@@ -43,10 +50,11 @@ public class Card {
 	 * @param cardPointValue an <code>int</code> value
 	 *                  containing the point value of the card
 	 */
-	public Card(String cardRank, String cardSuit, int cardPointValue) {
-		suit = cardSuit;
-      rank = cardRank;
-      pointValue = cardPointValue;
+	public Card(String cardRank, String cardSuit, int cardPointValue)
+   { 
+		this.suit = cardSuit;
+      this.rank = cardRank;
+      this.pointValue = cardPointValue;
 	}
 
 
@@ -55,7 +63,7 @@ public class Card {
 	 * @return this <code>Card's</code> suit.
 	 */
 	public String suit() {
-		return suit;
+		return this.suit;
    }
 
 	/**
@@ -63,7 +71,7 @@ public class Card {
 	 * @return this <code>Card's</code> rank.
 	 */
 	public String rank() {
-		return rank;
+		return this.rank;
 	}
 
    /**
@@ -71,7 +79,7 @@ public class Card {
 	 * @return this <code>Card's</code> point value.
 	 */
 	public int pointValue() {
-		return pointValue;
+		return this.pointValue;
   	}
 
 	/** Compare this card with the argument.
@@ -81,8 +89,12 @@ public class Card {
 	 *         false otherwise.
 	 */
 	public boolean matches(Card otherCard) {
-		if(otherCard.pointValue().equals(this.pointValue) && otherCard.rank().equals(this.rank)&& otherCard.suit().equals(this.suit))return true;
-	}
+    
+     	return(otherCard.pointValue() == (this.pointValue) 
+      && otherCard.rank().equals(this.rank)&& 
+      otherCard.suit().equals(this.suit));
+	   
+   }
 
 	/**
 	 * Converts the rank, suit, and point value into a string in the format
@@ -97,5 +109,7 @@ public class Card {
 	@Override
 	public String toString() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 1 *** */
+      return this.rank + " " + this.suit + " "+ String.valueOf(this.pointValue);
 	}
 }
+
