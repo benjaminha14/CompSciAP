@@ -1,7 +1,7 @@
 /**
  * This is a class that tests the Card class.
  */
-public class CardTester_BHa {
+public class CardTester2_BHa {
 	/**
 	 * The main method in this class checks the Card operations for consistency.
 	 *	@param args is not used.
@@ -14,7 +14,8 @@ public class CardTester_BHa {
       System.out.println(card1);
       System.out.println(card2);
       System.out.println(card3);
-      System.out.println("Comparing Card 1 and Card 2 is "+card1.matches(card3));
+      System.out.println("Comparing Card 1 and Card 2 is "+card1.matches(card2));
+      System.out.println("Comparing Card 1 and Card 3 is "+card1.matches(card3));
 	}
 }
 /**
