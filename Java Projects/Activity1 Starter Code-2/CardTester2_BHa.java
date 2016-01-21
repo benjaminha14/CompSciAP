@@ -1,3 +1,5 @@
+//Benjamin Ha
+//Period 2
 /**
  * This is a class that tests the Card class.
  */
