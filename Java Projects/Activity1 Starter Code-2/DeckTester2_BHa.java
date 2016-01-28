@@ -10,7 +10,7 @@
  4.Yes the order does matter.
  */
 import java.util.*;
-public class DeckTester_BHa {
+public class DeckTester2_BHa {
     /**
      * The main method in this class checks the Card operations for consistency.
      *	@param args is not used.
