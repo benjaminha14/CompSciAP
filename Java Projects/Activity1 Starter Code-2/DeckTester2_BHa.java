@@ -9,44 +9,36 @@
  3. See implementaton in code
  4.Yes the order does matter.
  */
+
+
 import java.util.*;
-public class DeckTester2_BHa {
-    /**
-     * The main method in this class checks the Card operations for consistency.
-     *	@param args is not used.
-     */
-    public static void main(String[] args) {
+
+public class DeckTester_BHa {
+        /**
+         * The main method in this class checks the Card operations for consistency.
+         *	@param args is not used.
+         */
+        public static void main(String[] args) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 1 *** */
-        Card card1 = new Card("King","Clubs",11);
-        Card card2 = new Card("King","Clubs",11);
-        Card card3 = new Card("Jack","Clubs",10);
-        String[] rank = {"2","3","4","5","6","7","8","9","Jack","Queen","King","Ace"};
-        String[] suit = {"Spades","Club","Diamond","Hearts"};
-        int[] value = {2,3,4,5,6,7,8,9,10,10,10,11};
-        String[] rank1 = {"Ace","1"};
-        String[] suit1 = {"Spades","Club","Diamond","Hearts"};
-        int[] value1 = {11,1};
-
-        String[] rank2 = {};
-        String[] suit2 = {};
-        int[] value2 = {};
-        // Assg 1
-        System.out.println(card1);
-        System.out.println(card2);
-        System.out.println(card3);
-        System.out.println("Comparing Card 1 and Card 2 is "+card1.matches(card2));
-        System.out.println("Comparing Card 1 and Card 3 is "+card1.matches(card3));
-        // Assg 2
-        Deck deck = new Deck(rank,suit ,value);
-        Deck deck1 = new Deck(rank1,suit1,value1);
-        Deck deck2 = new Deck(rank2,suit2,value2);
-        System.out.println("Decks with card's dealt");
-        System.out.println("Deck 1 ");
-        deck.printDeck();
+            Game game = new Game();
+            Player player = new Player();
+            Dealer dealer = new Dealer();
+            Scanner scan = new Scanner(System.in);
+            Boolean gameRunning = true;
+            String input = "";
+            dealer.deck.deal();
+            while(gameRunning){
+                game.gameSetUp();
+                input = scan.nextLine();
+                gameRunning = game.playerChoice(input);
 
 
+            }
+
+
+        }
     }
-}
+
 /**
  * Card.java
  *
@@ -140,7 +132,7 @@ class Card {
      */
     @Override
     public String toString() {
-		
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 1 *** */
         return this.rank + " " + this.suit + " "+ String.valueOf(this.pointValue);
     }
 }
@@ -169,7 +161,7 @@ class Deck {
      * @param values is an array containing all of the card point values.
      */
     public Deck(String[] ranks, String[] suits, int[] values) {
-		
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
         for(int y = 0; y < suits.length;y++){
 
             for(int i = 0;i<ranks.length;i++){
@@ -192,7 +184,7 @@ class Deck {
      * @return true if this deck is empty, false otherwise.
      */
     public boolean isEmpty() {
-		
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
         return cards.size()==0;
 
     }
@@ -202,7 +194,7 @@ class Deck {
      * @return the number of undealt cards in this deck.
      */
     public int size() {
-		
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
         return this.size;
     }
     /**
@@ -220,6 +212,7 @@ class Deck {
      * and reset the size to represent the entire deck.
      */
     public void shuffle() {
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
         ArrayList<Card> shuffled = new ArrayList<Card>(cards.size());
         for(int i = 0; i < cards.size(); i++){
             shuffled.add(null);
@@ -245,7 +238,8 @@ class Deck {
      *         previously dealt.
      */
     public Card deal() {
-		  if(isEmpty())return null;
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+        if(isEmpty())return null;
         Card actCard = cards.get(size-1);
         size--;
         cards.remove(actCard);
@@ -288,4 +282,113 @@ class Deck {
         rtn = rtn + "\n";
         return rtn;
     }
+
+    static class Player{
+        ArrayList<Card> hand;
+        private Dealer dealer;
+        public Player(){
+            hand =  new ArrayList<Card>();
+            dealer = new Dealer();
+        }
+
+
+
+        // Check if hand is less than or over 21
+        public boolean isOver(){
+            int sum = 0;
+            // Adds up value of hand
+            for(Card card:hand){
+                sum+= card.pointValue();
+                if(sum >21)return true;
+            }
+            return false;
+        }
+        public int getSum(){
+            int sum = 0;
+            // Adds up value of hand
+            for(Card card:hand){
+                sum+= card.pointValue();
+
+            }
+            return sum;
+        }
+        // Is this smart?
+        public void hit(){
+            this.hand.add(dealer.deck.deal());
+        }
+        public void getHand(){
+            for(Card card:hand)System.out.print( card+ " |");
+        }
+
+    }
+    static class Dealer extends Player{
+        private String[] rank;
+        private String[] suit;
+        private int[] value;
+        Deck deck;
+        // Is deck in dealer?
+        public Dealer(){
+            value = new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11};
+            suit = new String[]{"Spades","Club","Diamond","Hearts"};
+            rank = new String[]{"2","3","4","5","6","7","8","9","Jack","Queen","King","Ace"};
+            deck = new Deck(rank,suit,value);
+        }
+        @Override
+        public void hit(){
+            while(getSum() < 17){
+                this.hand.add(deck.deal());
+            }
+        }
+
+
+
+    }
+    static class Game{
+        private Boolean running;
+        private Player player;
+        private Dealer dealer;
+
+
+        public Game(){
+            this.running = true;
+            this.player = new Player();
+            this.dealer = new Dealer();
+
+        }
+        public boolean isRunning(){
+            return running;
+        }
+        public boolean playerChoice(String answer){
+
+
+                if (answer.equalsIgnoreCase("a")) {
+                    System.out.println("Hit");
+                    player.hit();
+                    return false;
+                } else if (answer.equalsIgnoreCase("h")) {
+                    player.getHand();
+                    return true;
+                } else if (answer.equalsIgnoreCase("d")) {
+                    this.running = gameLogic();
+                }
+            return false;
+        }
+        
+        private Boolean gameLogic(){
+            if(player.getSum()>dealer.getSum()){
+                System.out.println("Player wins");
+                return false;
+            }else{
+                System.out.println("You lose");
+                return false;
+            }
+
+        }
+        public void gameSetUp(){
+            System.out.println("A to his H to see hand and D to end turn.");
+        }
+
+    }
+    
+
 }
