@@ -4,6 +4,20 @@ public class ShapeTester_HaBRaoS
    public static void main(String[] args)
    {
       //Make a circle object and a rectangle objects and a shape object
+      
+      Shape shape = new Shape(0,5,new Color(56,12,0));
+      System.out.println("Shape: "+shape.getX() + "," + shape.getY() + ", Color "+shape.getColor());
+      Circle circle = new Circle(9,7,4,new Color(0,0,0));
+      System.out.println("Circle: "+ circle.getX() + "," + circle.getY() + ", radius: "+
+                          circle.getRadius()+", Color: "+ circle.getColor());
+      Rectangle rectangle = new Rectangle(2,10,9,0,new Color(5,3,6));
+     
+      System.out.println("Rectangle "+"Width: "+ rectangle.getWidth() + " Height: "
+                          +rectangle.getHeight()+ " Location: "+ rectangle.getX() +
+                          ","+rectangle.getY() +" Bottom Left: "+rectangle.getBottomRightY()
+                          + " Area: "+rectangle.getArea() + " Color: "
+                          +rectangle.getColor());
+      
    }
 }
 
@@ -20,6 +34,7 @@ class Shape {
     }
     public int getX() {return xLoc;}
     public int getY() {return yLoc;}
+    public Color getColor(){return color;}
     
     /**
      2) Write an alternate constructor that takes the x, y location AND
@@ -50,6 +65,8 @@ class Circle extends Shape
       this.radius = radius;
       
    }
+   public int getRadius(){return radius;}
+   
    
 }
 
@@ -65,6 +82,8 @@ class Rectangle extends Shape
    }
    public int getArea(){return height*width;}
    public int getBottomRightY(){ return super.getY()-height;}
+   public int getWidth(){return width;}
+   public int getHeight(){return height;}
 }
 /** 4) Write a class Rectangle that inherits from Shape and has an instance
  		field for width, height, color and x,y location.
